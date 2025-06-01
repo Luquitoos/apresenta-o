@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Containerização - Docker & DevOps</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body { 
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide-container { 
+            width: 100vw !important; 
+            height: 100vh !important;
+            display: flex;
+            flex-direction: column;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+        }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .fade-in { animation: fadeIn 0.8s ease-in; }
+        .slide-up { animation: slideUp 0.6s ease-out; }
+        .slide-down { animation: slideDown 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .benefit-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid transparent;
+            transform-origin: center;
+            will-change: transform, box-shadow;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .benefit-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+        .isolation-benefit { border-left-color: #3b82f6; }
+        .portability-benefit { border-left-color: #10b981; }
+        .scalability-benefit { border-left-color: #f59e0b; }
+        .development-benefit { border-left-color: #8b5cf6; }
+        .code-block {
+            background: linear-gradient(145deg, #1e293b, #334155);
+            border: 1px solid #475569;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: #e2e8f0;
+        }
+        .docker-flow {
+            background: linear-gradient(90deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+        .container-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .docker-command {
+            background: linear-gradient(145deg, #059669, #047857);
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-origin: center;
+            will-change: transform, box-shadow;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="slide-container bg-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 75% 75%, #1e40af 0%, transparent 50%);"></div>
+        </div>
+        
+        <!-- Header -->
+        <div class="gradient-bg text-white px-12 py-8 relative flex-shrink-0">
+            <div class="fade-in">
+                <h1 class="text-6xl font-bold mb-2">Containerização</h1>
+                <h2 class="text-2xl font-medium opacity-90 flex items-center">
+                    <i class="fab fa-docker mr-3 text-2xl"></i>
+                    Docker & Orquestração de Serviços
+                </h2>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="px-8 py-6 flex-grow overflow-hidden">
+            <div class="grid grid-cols-3 gap-10">
+                <!-- Left Column - Benefits -->
+                <div class="slide-up">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3 text-xl"></i>
+                        Benefícios da Containerização
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="benefit-card isolation-benefit bg-blue-50 rounded-lg p-4 border border-blue-200 hover-scale">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-shield-alt text-blue-600 text-xl mr-3"></i>
+                                <h4 class="font-semibold text-blue-800 text-lg">Isolamento</h4>
+                            </div>
+                            <p class="text-base text-blue-700">Cada componente roda em seu próprio ambiente isolado, evitando conflitos de dependências.</p>
+                        </div>
+                        
+                        <div class="benefit-card portability-benefit bg-green-50 rounded-lg p-4 border border-green-200 hover-scale">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-globe text-green-600 text-xl mr-3"></i>
+                                <h4 class="font-semibold text-green-800 text-lg">Portabilidade</h4>
+                            </div>
+                            <p class="text-base text-green-700">Execução consistente em qualquer ambiente que suporte Docker (dev, teste, produção).</p>
+                        </div>
+                        
+                        <div class="benefit-card scalability-benefit bg-amber-50 rounded-lg p-4 border border-amber-200 hover-scale">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-expand-arrows-alt text-amber-600 text-xl mr-3"></i>
+                                <h4 class="font-semibold text-amber-800 text-lg">Escalabilidade</h4>
+                            </div>
+                            <p class="text-base text-amber-700">Facilita deployment em produção e escalonamento horizontal de serviços.</p>
+                        </div>
+                        
+                        <div class="benefit-card development-benefit bg-purple-50 rounded-lg p-4 border border-purple-200 hover-scale">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-code text-purple-600 text-xl mr-3"></i>
+                                <h4 class="font-semibold text-purple-800 text-lg">Desenvolvimento</h4>
+                            </div>
+                            <p class="text-base text-purple-700">Setup simplificado para novos desenvolvedores - um comando para rodar tudo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle Column - Docker Configuration -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fab fa-docker text-blue-600 mr-3 text-xl"></i>
+                        Configuração Docker
+                    </h3>
+                    
+                    <!-- Docker Compose -->
+                    <div class="mb-3">
+                        <h4 class="text-xl font-semibold text-gray-700 mb-2 flex items-center">
+                            <i class="fas fa-file-code text-blue-500 mr-2 text-lg"></i>
+                            docker-compose.yaml
+                        </h4>
+                        <div class="code-block rounded-lg p-3 hover-scale" style="font-size: 0.85rem; height: 280px; background-color: #313D53;">
+                            <div class="text-green-400 mb-1"># Services Configuration</div>
+                            <div class="text-yellow-300">version: <span class="text-white">'3.8'</span></div>
+                            <div class="text-blue-300">services:</div>
+                            <div class="ml-2 text-blue-300">backend:</div>
+                            <div class="ml-4 text-gray-300">build: ./backend</div>
+                            <div class="ml-4 text-gray-300">ports: <span class="text-white">["5000:5000"]</span></div>
+                            <div class="ml-4 text-gray-300">env_file: .env</div>
+                            <div class="ml-2 text-blue-300">frontend:</div>
+                            <div class="ml-4 text-gray-300">build: ./frontend</div>
+                            <div class="ml-4 text-gray-300">ports: <span class="text-white">["3000:3000"]</span></div>
+                            <div class="ml-4 text-gray-300">depends_on: [backend]</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dockerfiles -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="text-base font-semibold text-gray-600 mb-2 flex items-center">
+                                <i class="fas fa-server text-green-600 mr-2 text-lg"></i>
+                                Backend Dockerfile
+                            </h5>
+                            <div class="code-block rounded p-3 hover-scale" style="font-size: 0.8rem; height: 220px;">
+                                <div class="text-blue-300">FROM <span class="text-white">node:18-alpine</span></div>
+                                <div class="text-blue-300">WORKDIR <span class="text-white">/app</span></div>
+                                <div class="text-blue-300">COPY <span class="text-white">package*.json ./</span></div>
+                                <div class="text-blue-300">RUN <span class="text-white">npm ci</span></div>
+                                <div class="text-blue-300">COPY <span class="text-white">. .</span></div>
+                                <div class="text-blue-300">EXPOSE <span class="text-white">5000</span></div>
+                                <div class="text-blue-300">CMD <span class="text-white">["npm", "start"]</span></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="text-base font-semibold text-gray-600 mb-2 flex items-center">
+                                <i class="fas fa-desktop text-blue-600 mr-2 text-lg"></i>
+                                Frontend Dockerfile
+                            </h5>
+                            <div class="code-block rounded p-3 hover-scale" style="font-size: 0.8rem; height: 220px;">
+                                <div class="text-blue-300">FROM <span class="text-white">node:18-alpine</span></div>
+                                <div class="text-blue-300">WORKDIR <span class="text-white">/app</span></div>
+                                <div class="text-blue-300">COPY <span class="text-white">package*.json ./</span></div>
+                                <div class="text-blue-300">RUN <span class="text-white">npm ci</span></div>
+                                <div class="text-blue-300">COPY <span class="text-white">. .</span></div>
+                                <div class="text-blue-300">RUN <span class="text-white">npm run build</span></div>
+                                <div class="text-blue-300">EXPOSE <span class="text-white">3000</span></div>
+                                <div class="text-blue-300">CMD <span class="text-white">["npm", "start"]</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Container Architecture & Commands -->
+                <div class="slide-down">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-sitemap text-purple-600 mr-3 text-xl"></i>
+                        Arquitetura de Containers
+                    </h3>
+                    
+                    <!-- Container Flow - Reduced size -->
+                    <div class="docker-flow rounded-lg p-3 mb-3 hover-scale">
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="container-icon text-4xl text-blue-600">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-green-200 hover-scale">
+                                    <div class="text-center">
+                                        <i class="fas fa-server text-green-600 text-xl mb-1"></i>
+                                        <div class="text-sm font-semibold text-green-800">Backend</div>
+                                        <div class="text-xs text-green-600">Port 5000</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-blue-600">
+                                    <i class="fas fa-exchange-alt text-xl"></i>
+                                </div>
+                                
+                                <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-blue-200 hover-scale">
+                                    <div class="text-center">
+                                        <i class="fas fa-desktop text-blue-600 text-xl mb-1"></i>
+                                        <div class="text-sm font-semibold text-blue-800">Frontend</div>
+                                        <div class="text-xs text-blue-600">Port 3000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- MongoDB container with connections to existing Backend and Frontend -->
+                            <div class="relative">
+                                <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-yellow-200 hover-scale">
+                                    <div class="text-center">
+                                        <i class="fas fa-database text-yellow-600 text-xl mb-1"></i>
+                                        <div class="text-sm font-semibold text-yellow-800">MongoDB</div>
+                                        <div class="text-xs text-yellow-600">Database</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- No connection lines -->
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-gray-200 hover-scale">
+                                <div class="text-center">
+                                    <i class="fas fa-network-wired text-gray-600 text-xl mb-1"></i>
+                                    <div class="text-sm font-semibold text-gray-800">Docker Network</div>
+                                    <div class="text-xs text-gray-600">Internal Communication</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Execution Steps -->
+                    <h4 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <i class="fas fa-play text-green-600 mr-2 text-lg"></i>
+                        Como Executar
+                    </h4>
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <div class="step-number w-8 h-8 rounded-full text-white flex items-center justify-center text-sm font-bold mr-2">1</div>
+                            <div class="flex-1">
+                                <div class="docker-command rounded p-2 text-sm hover-scale">
+                                    git clone &lt;repo-url&gt;
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="step-number w-8 h-8 rounded-full text-white flex items-center justify-center text-sm font-bold mr-2">2</div>
+                            <div class="flex-1">
+                                <div class="docker-command rounded p-2 text-sm hover-scale">
+                                    cd TODO---Ceos-main
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="step-number w-8 h-8 rounded-full text-white flex items-center justify-center text-sm font-bold mr-2">3</div>
+                            <div class="flex-1">
+                                <div class="docker-command rounded p-2 text-sm hover-scale">
+                                    docker-compose up -d
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Access URLs -->
+                    <div class="mt-2 bg-green-50 rounded-lg p-2 border border-green-200 hover-scale">
+                        <h5 class="font-semibold text-green-800 mb-1 flex items-center text-base">
+                            <i class="fas fa-external-link-alt text-green-600 mr-2"></i>
+                            Acesso à Aplicação
+                        </h5>
+                        <div class="space-y-1 text-sm">
+                            <div class="flex items-center">
+                                <i class="fas fa-desktop text-blue-600 mr-2"></i>
+                                <span class="text-green-700">Frontend: </span>
+                                <code class="bg-white px-2 py-1 rounded text-blue-600">http://localhost:3000</code>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-server text-green-600 mr-2"></i>
+                                <span class="text-green-700">API: </span>
+                                <code class="bg-white px-2 py-1 rounded text-green-600">http://localhost:5000</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technology Stack - Reduced height -->
+            <div class="mt-3 bg-gray-50 rounded-xl p-4 hover-scale">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 flex items-center">
+                    <i class="fas fa-boxes text-blue-600 mr-2 text-lg"></i>
+                    Stack de Containerização
+                </h3>
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="flex items-center bg-white rounded-lg p-3 shadow-sm hover-scale">
+                        <i class="fab fa-docker text-blue-500 text-2xl mr-2"></i>
+                        <div>
+                            <div class="text-base font-medium text-gray-700">Docker</div>
+                            <div class="text-sm text-gray-500">Container Runtime</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-white rounded-lg p-3 shadow-sm hover-scale">
+                        <i class="fas fa-cubes text-purple-600 text-2xl mr-2"></i>
+                        <div>
+                            <div class="text-base font-medium text-gray-700">Docker Compose</div>
+                            <div class="text-sm text-gray-500">Multi-container</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-white rounded-lg p-3 shadow-sm hover-scale">
+                        <i class="fab fa-linux text-yellow-600 text-2xl mr-2"></i>
+                        <div>
+                            <div class="text-base font-medium text-gray-700">Alpine Linux</div>
+                            <div class="text-sm text-gray-500">Lightweight OS</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-white rounded-lg p-3 shadow-sm hover-scale">
+                        <i class="fas fa-layer-group text-green-600 text-2xl mr-2"></i>
+                        <div>
+                            <div class="text-base font-medium text-gray-700">Multi-stage Build</div>
+                            <div class="text-sm text-gray-500">Optimized Images</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

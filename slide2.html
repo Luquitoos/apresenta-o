@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura do Projeto</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body { 
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide-container { 
+            width: 100vw !important; 
+            height: 100vh !important;
+            display: flex;
+            flex-direction: column;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+        }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .fade-in { animation: fadeIn 0.8s ease-in; }
+        .slide-up { animation: slideUp 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .layer-card { 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid transparent;
+            transform-origin: center;
+            will-change: transform, box-shadow;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .layer-card:hover { 
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-origin: center;
+            will-change: transform, box-shadow;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            z-index: 2;
+        }
+        .controller-layer { border-left-color: #ef4444; }
+        .service-layer { border-left-color: #3b82f6; }
+        .model-layer { border-left-color: #10b981; }
+        .architecture-diagram {
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 2px dashed #cbd5e1;
+        }
+        .flow-arrow {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="slide-container bg-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 75% 75%, #1e40af 0%, transparent 50%);"></div>
+        </div>
+        
+        <!-- Header -->
+        <div class="gradient-bg text-white px-12 py-8 relative flex-shrink-0">
+            <div class="fade-in">
+                <h1 class="text-5xl font-bold mb-3">Arquitetura do Projeto</h1>
+                <h2 class="text-2xl font-medium opacity-90 flex items-center">
+                    <i class="fas fa-sitemap mr-3"></i>
+                    Clean Architecture & Separação em Camadas
+                </h2>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="px-8 py-8 flex-grow flex items-center">
+            <div class="grid grid-cols-2 gap-12 w-full">
+                <!-- Left Column - Architecture Diagram -->
+                <div class="slide-up">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-layer-group text-blue-600 mr-3 text-2xl"></i>
+                        Clean Architecture
+                    </h3>
+                    
+                    <!-- Architecture Visual -->
+                    <div class="architecture-diagram rounded-xl p-6 mb-6">
+                        <div class="space-y-4">
+                            <!-- Controllers Layer -->
+                            <div class="layer-card controller-layer bg-red-50 rounded-lg p-5 border-2 border-red-100">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-exchange-alt text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-red-700 text-lg">Controllers</h4>
+                                        <p class="text-base text-red-600">Interface & Requisições</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Flow Arrow -->
+                            <div class="flex justify-center">
+                                <i class="fas fa-arrow-down text-gray-400 text-3xl flow-arrow"></i>
+                            </div>
+                            
+                            <!-- Services Layer -->
+                            <div class="layer-card service-layer bg-blue-50 rounded-lg p-5 border-2 border-blue-100">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-cogs text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-700 text-lg">Services</h4>
+                                        <p class="text-base text-blue-600">Lógica de Negócio</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Flow Arrow -->
+                            <div class="flex justify-center">
+                                <i class="fas fa-arrow-down text-gray-400 text-3xl flow-arrow"></i>
+                            </div>
+                            
+                            <!-- Models Layer -->
+                            <div class="layer-card model-layer bg-green-50 rounded-lg p-5 border-2 border-green-100">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-database text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-green-700 text-lg">Models</h4>
+                                        <p class="text-base text-green-600">Entidades & Dados</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Architecture Principle -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 hover-scale">
+                        <div class="flex items-start">
+                            <i class="fas fa-lightbulb text-blue-600 text-2xl mr-3 mt-1"></i>
+                            <div>
+                                <h5 class="font-semibold text-blue-800 mb-2 text-lg">Princípio Central</h5>
+                                <p class="text-base text-blue-700">
+                                    Dependências sempre apontam para dentro. Camadas externas conhecem as internas, 
+                                    mas não o contrário.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Layer Details & Benefits -->
+                <div class="fade-in">
+                    <!-- Layer Responsibilities -->
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-tasks text-green-600 mr-3 text-2xl"></i>
+                        Responsabilidades das Camadas
+                    </h3>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover-scale">
+                            <h4 class="font-semibold text-red-700 mb-3 flex items-center text-lg">
+                                <i class="fas fa-exchange-alt mr-2 text-lg"></i>
+                                Controllers
+                            </h4>
+                            <ul class="text-base text-gray-600 space-y-1">
+                                <li>• Gerenciam requisições HTTP</li>
+                                <li>• Validam dados de entrada</li>
+                                <li>• Formatam respostas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover-scale">
+                            <h4 class="font-semibold text-blue-700 mb-3 flex items-center text-lg">
+                                <i class="fas fa-cogs mr-2 text-lg"></i>
+                                Services
+                            </h4>
+                            <ul class="text-base text-gray-600 space-y-1">
+                                <li>• Implementam regras de negócio</li>
+                                <li>• Coordenam operações</li>
+                                <li>• Processam dados</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover-scale">
+                            <h4 class="font-semibold text-green-700 mb-3 flex items-center text-lg">
+                                <i class="fas fa-database mr-2 text-lg"></i>
+                                Models
+                            </h4>
+                            <ul class="text-base text-gray-600 space-y-1">
+                                <li>• Definem estruturas de dados</li>
+                                <li>• Representam entidades</li>
+                                <li>• Interagem com banco de dados</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Benefits -->
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3 text-2xl"></i>
+                        Benefícios
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200 hover-scale">
+                            <div class="flex items-center">
+                                <i class="fas fa-puzzle-piece text-blue-600 mr-2 text-lg"></i>
+                                <span class="text-base font-medium text-blue-800">Baixo Acoplamento</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200 hover-scale">
+                            <div class="flex items-center">
+                                <i class="fas fa-link text-green-600 mr-2 text-lg"></i>
+                                <span class="text-base font-medium text-green-800">Alta Coesão</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-4 border border-purple-200 hover-scale">
+                            <div class="flex items-center">
+                                <i class="fas fa-vial text-purple-600 mr-2 text-lg"></i>
+                                <span class="text-base font-medium text-purple-800">Testabilidade</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-orange-50 to-amber-50 rounded-lg p-4 border border-orange-200 hover-scale">
+                            <div class="flex items-center">
+                                <i class="fas fa-wrench text-orange-600 mr-2 text-lg"></i>
+                                <span class="text-base font-medium text-orange-800">Manutenibilidade</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

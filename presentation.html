@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList - Apresentação</title>
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        /* Force full screen without any margins */
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+        }
+        
+        html, body {
+            width: 100vw !important;
+            height: 100vh !important;
+            overflow: hidden !important;
+        }
+        
+        .reveal {
+            font-family: 'Inter', sans-serif !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+        }
+        
+        .reveal .slides {
+            width: 100vw !important;
+            height: 100vh !important;
+            left: 0 !important;
+            top: 0 !important;
+            text-align: left !important;
+        }
+        
+        .reveal .slides section {
+            width: 100vw !important;
+            height: 100vh !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+        
+        .slide-frame {
+            width: 100vw !important;
+            height: 100vh !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            max-width: none !important;
+            max-height: none !important;
+            min-width: 100vw !important;
+            min-height: 100vh !important;
+            transform: none !important;
+            overflow: hidden !important;
+        }
+        
+        /* Override Reveal.js default styles */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            text-transform: none;
+            line-height: 1.2;
+        }
+        
+        /* Navigation controls */
+        .reveal .controls {
+            color: #667eea;
+            z-index: 1000;
+        }
+        
+        .reveal .progress {
+            color: #667eea;
+            z-index: 1000;
+        }
+        
+        .reveal .slide-number {
+            z-index: 1000;
+        }
+        
+        /* Force Reveal.js to not limit iframe size */
+        .reveal .slides section iframe {
+            width: 100vw !important;
+            height: 100vh !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            max-width: none !important;
+            max-height: none !important;
+            min-width: 100vw !important;
+            min-height: 100vh !important;
+        }
+        
+        /* Override any Reveal.js container limitations */
+        .reveal .slides section {
+            overflow: visible !important;
+            transform: none !important;
+        }
+        
+        .reveal .slides {
+            overflow: visible !important;
+        }
+        
+        /* Ensure no scaling or transformations */
+        .reveal .slides section.present,
+        .reveal .slides section.past,
+        .reveal .slides section.future {
+            transform: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide1.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 2 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide2.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 3 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide3.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 4 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide4.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 5 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide5.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 6 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide6.html" class="slide-frame"></iframe>
+            </section>
+            
+            <!-- Slide 7 -->
+            <section data-background-color="#f9fafb">
+                <iframe src="slide7.html" class="slide-frame"></iframe>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Reveal.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    
+    <script>
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            slideNumber: true,
+            history: true,
+            keyboard: true,
+            overview: true,
+            center: false,
+            touch: true,
+            loop: false,
+            rtl: false,
+            shuffle: false,
+            fragments: true,
+            embedded: false,
+            help: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            autoSlideMethod: Reveal.navigateNext,
+            defaultTiming: 120,
+            mouseWheel: false,
+            hideInactiveCursor: true,
+            hideCursorTime: 5000,
+            hideAddressBar: true,
+            previewLinks: false,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            viewDistance: 3,
+            parallaxBackgroundImage: '',
+            parallaxBackgroundSize: '',
+            parallaxBackgroundHorizontal: null,
+            parallaxBackgroundVertical: null,
+            display: 'block',
+            
+            // Force full viewport
+            width: '100vw',
+            height: '100vh',
+            margin: 0,
+            minScale: 1,
+            maxScale: 1
+        });
+        
+        // Keyboard shortcuts
+        Reveal.configure({
+            keyboard: {
+                27: function() { Reveal.toggleOverview(); },
+                70: function() { Reveal.toggleFullscreen(); }
+            }
+        });
+        
+        // Force iframe full coverage
+        function forceIframeFullSize() {
+            const iframes = document.querySelectorAll('.slide-frame');
+            iframes.forEach(function(iframe) {
+                iframe.style.width = '100vw';
+                iframe.style.height = '100vh';
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.right = '0';
+                iframe.style.bottom = '0';
+                iframe.style.border = 'none';
+                iframe.style.margin = '0';
+                iframe.style.padding = '0';
+                iframe.style.maxWidth = 'none';
+                iframe.style.maxHeight = 'none';
+                iframe.style.minWidth = '100vw';
+                iframe.style.minHeight = '100vh';
+                iframe.style.transform = 'none';
+            });
+        }
+        
+        // Apply on load and resize
+        Reveal.addEventListener('ready', function() {
+            forceIframeFullSize();
+            console.log('Iframes forced to full size');
+        });
+        
+        window.addEventListener('resize', function() {
+            forceIframeFullSize();
+        });
+        
+        Reveal.addEventListener('slidechanged', function() {
+            setTimeout(forceIframeFullSize, 50);
+        });
+        
+        // Debug info
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Presentation loaded!');
+            console.log('Navigation tips:');
+            console.log('- Use arrow keys or spacebar to navigate');
+            console.log('- Press ESC for slide overview');
+            console.log('- Press F for fullscreen');
+            console.log('- Press ? for help');
+            
+            // Force iframe size immediately
+            setTimeout(forceIframeFullSize, 100);
+        });
+    </script>
+</body>
+</html>
